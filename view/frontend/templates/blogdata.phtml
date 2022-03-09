@@ -1,0 +1,11 @@
+<?php $arrBlogData = $block->getBlogData();
+//echo "<pre>";print_R($_SERVER['SERVER_NAME']);exit;
+?>
+<ol>
+<?php if (count($arrBlogData)) { ?>
+<h2><?= $block->escapeHtml(__('Blogs')) ?></h2>
+<?php foreach($arrBlogData as $key => $arrBlog): ?>
+<li>
+<p><a href="<?= $block->getUrl("blog/").$arrBlog['identifier'] ?>"><?php echo $arrBlog['title']; ?></a></p></li>
+<?php endforeach; ?></ol>
+<?php } ?>

@@ -1,0 +1,5 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="cms_blog_prepare_save">
+        <observer name="validate_cms_blog"  instance="Custom\Blog\Observer\BlogValidatorObserver"/>
+    </event>
+</config>

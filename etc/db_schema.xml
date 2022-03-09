@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="cms_custom_blog" resource="default" engine="innodb" comment="CMS Blog Table">
+        <column xsi:type="smallint" name="blog_id" unsigned="false" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="title" nullable="true" length="255" comment="Blog Title"/>
+        <column xsi:type="varchar" name="blog_layout" nullable="true" length="255" comment="Blog Layout"/>
+        <column xsi:type="text" name="meta_keywords" nullable="true" comment="Blog Meta Keywords"/>
+        <column xsi:type="text" name="meta_description" nullable="true" comment="Blog Meta Description"/>
+        <column xsi:type="varchar" name="identifier" nullable="true" length="100" comment="Blog String Identifier"/>
+        <column xsi:type="varchar" name="content_heading" nullable="true" length="255" comment="Blog Content Heading"/>
+        <column xsi:type="mediumtext" name="content" nullable="true" comment="Blog Content"/>
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Blog Creation Time"/>
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Blog Modification Time"/>
+        <column xsi:type="smallint" name="is_active" unsigned="false" nullable="false" identity="false"
+                default="1" comment="Is Blog Active"/>
+        <column xsi:type="smallint" name="sort_order" unsigned="false" nullable="false" identity="false"
+                default="0" comment="Blog Sort Order"/>
+        <column xsi:type="text" name="layout_update_xml" nullable="true" comment="Blog Layout Update Content"/>
+        <column xsi:type="varchar" name="custom_theme" nullable="true" length="100" comment="Blog Custom Theme"/>
+        <column xsi:type="varchar" name="custom_root_template" nullable="true" length="255"
+                comment="Blog Custom Template"/>
+        <column xsi:type="text" name="custom_layout_update_xml" nullable="true"
+                comment="Blog Custom Layout Update Content"/>
+        <column xsi:type="varchar" name="layout_update_selected" nullable="true"
+                length="128" comment="Blog Custom Layout File"/>
+        <column xsi:type="date" name="custom_theme_from" comment="Blog Custom Theme Active From Date"/>
+        <column xsi:type="date" name="custom_theme_to" comment="Blog Custom Theme Active To Date"/>
+        <column xsi:type="varchar" name="meta_title" nullable="true" length="255" comment="Blog Meta Title"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="blog_id"/>
+        </constraint>
+        <index referenceId="CMS_CUSTOM_BLOG_IDENTIFIER" indexType="btree">
+            <column name="identifier"/>
+        </index>
+        <index referenceId="CMS_CUSTOM_BLOG_TITLE_META_KEYWORDS_META_DESCRIPTION_IDENTIFIER_CONTENT" indexType="fulltext">
+            <column name="title"/>
+            <column name="meta_keywords"/>
+            <column name="meta_description"/>
+            <column name="identifier"/>
+            <column name="content"/>
+        </index>
+    </table>
+    <table name="cms_custom_blog_store" resource="default" engine="innodb" comment="CMS Blog To Store Linkage Table">
+        <column xsi:type="smallint" name="blog_id" unsigned="false" nullable="false" identity="false"
+                comment="Entity ID"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="false" identity="false"
+                comment="Store ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="blog_id"/>
+            <column name="store_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CMS_CUSTOM_BLOG_STORE_BLOG_ID_CMS_CUSTOM_BLOG_BLOG_ID" table="cms_custom_blog_store"
+                    column="blog_id" referenceTable="cms_custom_blog" referenceColumn="blog_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="CMS_CUSTOM_BLOG_STORE_ID_STORE_STORE_ID" table="cms_custom_blog_store"
+                    column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+        <index referenceId="CMS_CUSTOM_BLOG_STORE_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+    </table>
+</schema>

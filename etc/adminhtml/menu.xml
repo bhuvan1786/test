@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+    <add id="Custom_Blog::customcms" title="Custom Cms" translate="title" module="Custom_Blog" sortOrder="50" resource="Magento_Backend::content"/>
+     
+      <add id="Custom_Blog::customcms_blog" title="Blog" translate="title" module="Custom_Blog" parent="Custom_Blog::customcms" sortOrder="1000" dependsOnModule="Custom_Blog" action="customcms/blog/view" resource="Custom_Blog::customcms"/>
+        
+      <add id="Custom_Blog::customcms_blog_grid" title="Blog List" translate="title" module="Custom_Blog" parent="Custom_Blog::customcms" sortOrder="999" dependsOnModule="Custom_Blog" action="customcms/blog" resource="Custom_Blog::customcms"/>
+
+    </menu>
+</config>
